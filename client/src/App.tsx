@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import Profile from "./pages/profile";
 import WorkoutPlan from "./pages/workout-plan";
 import Session from "./pages/session";
+import Exercises from "./pages/exercises";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
             { path: "/profile", element: <Profile /> },
             { path: "/plan", element: <WorkoutPlan /> },
             { path: "/session", element: <Session /> },
+            { path: "/exercises", element: <Exercises /> },
         ],
     },
 ]);
