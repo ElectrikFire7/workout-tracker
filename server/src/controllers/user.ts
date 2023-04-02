@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 import User from "../models/user";
+import WorkoutPlan from "../models/workout-plan";
 
 export const COOKIE_NAME = "authToken";
 export const TOKEN_SECRET_KEY = "abscueyvabfd";
@@ -43,6 +44,7 @@ export const signUp: RequestHandler<
             isActive: true,
             isAdmin: false,
         });
+        await WorkoutPlan.create({ userId: newUser.id });
 
         const token = sign({ userId: newUser.id }, TOKEN_SECRET_KEY, {
             expiresIn: "1d",

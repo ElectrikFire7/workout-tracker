@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 
 import api from "../api";
 import { UserContext } from "../components/Auth";
-import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
     const { user, setUser } = useContext(UserContext);
@@ -27,7 +26,6 @@ const ProfilePage = () => {
 
     return (
         <Container className="w-50 mt-2">
-            <Link to="/">&lt;&lt; Home</Link>
             <h2 className="my-5">Profile</h2>
             <Form.Label htmlFor="name">Name</Form.Label>
             <Form.Control

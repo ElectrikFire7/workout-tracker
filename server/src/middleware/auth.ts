@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { verify } from "jsonwebtoken";
 import { HydratedDocument } from "mongoose";
 
-import { COOKIE_NAME, TOKEN_SECRET_KEY } from "../controllers/users";
+import { COOKIE_NAME, TOKEN_SECRET_KEY } from "../controllers/user";
 import User, { User as UserType } from "../models/user";
 
 declare global {

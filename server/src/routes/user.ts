@@ -6,7 +6,7 @@ import {
     logout,
     signUp,
     updateProfile,
-} from "../controllers/users";
+} from "../controllers/user";
 import { requiresAuth } from "../middleware/auth";
 
 const router = express.Router();

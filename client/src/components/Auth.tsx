@@ -8,21 +8,13 @@ import {
 } from "react";
 
 import api from "../api";
+import { User } from "../models";
 
 export let loggedInUser = null;
 
 type Props = {
     children?: React.ReactNode;
 };
-
-interface User {
-    name: string;
-    age: number;
-    height: number;
-    weight: number;
-    isActive: boolean;
-    isAdmin: boolean;
-}
 
 export const UserContext = createContext<{
     user: User;
