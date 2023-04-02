@@ -42,7 +42,7 @@ const Auth: FC<Props> = ({ children }) => {
         })();
     }, []);
 
-    if (!user) return <>fetching ...</>;
+    if (!user || user._id === "fake") return <>fetching ...</>;
     if (!user.isActive) return <>Unauthorized</>;
     return (
         <UserContext.Provider

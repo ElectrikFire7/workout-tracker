@@ -109,3 +109,12 @@ export const endSession: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getSessions: RequestHandler = async (req, res, next) => {
+    try {
+        const sessions = await Session.find({ userId: req.user!.id });
+        res.status(200).send(sessions);
+    } catch (error) {
+        next(error);
+    }
+};

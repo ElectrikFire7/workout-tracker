@@ -24,6 +24,7 @@ export interface Exercise {
 }
 
 export interface Session {
+    _id: string;
     start: string;
     end: string;
     userId: string;
