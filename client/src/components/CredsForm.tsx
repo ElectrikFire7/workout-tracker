@@ -29,7 +29,7 @@ const CredsForm: FC<Props> = ({ isLogin }) => {
     }, [email, navigate, password]);
     const registerHandler = useCallback(async () => {
         await api.post("users/signup", { email, password });
-        navigate("/profile/edit");
+        navigate("/profile");
     }, [email, navigate, password]);
 
     return (

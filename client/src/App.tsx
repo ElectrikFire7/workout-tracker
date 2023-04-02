@@ -4,6 +4,7 @@ import CredsForm from "./components/CredsForm";
 import Auth from "./components/Auth";
 import Header from "./components/Header";
 import Logout from "./pages/logout";
+import Profile from "./pages/profile";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,10 @@ const router = createBrowserRouter([
                 <Outlet />
             </Auth>
         ),
-        children: [{ path: "/", element: <h1>404 Not Found</h1> }],
+        children: [
+            { path: "/profile", element: <Profile /> },
+            { path: "/", element: <h1>404 Not Found</h1> },
+        ],
     },
 ]);
 
