@@ -21,6 +21,7 @@ export const UserContext = createContext<{
     setUser: Dispatch<SetStateAction<User>>;
 }>({
     user: {
+        _id: "fake",
         name: "Name",
         age: 18,
         height: 172,

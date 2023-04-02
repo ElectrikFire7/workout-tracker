@@ -140,3 +140,30 @@ export const updateProfile: RequestHandler<
         next(error);
     }
 };
+
+export const getUsers: RequestHandler = async (_req, res, next) => {
+    try {
+        const users = await User.find({ isAdmin: false });
+        res.status(200).send(users);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const setUserAccess: (
+    e: boolean
+) => RequestHandler<{ id: string }, unknown, unknown, unknown> =
+    (enable: boolean) => async (req, res, next) => {
+        try {
+            const user = await User.findByIdAndUpdate(
+                req.params.id,
+                {
+                    isActive: enable,
+                },
+                { returnDocument: "after" }
+            );
+            res.status(200).send(user);
+        } catch (error) {
+            next(error);
+        }
+    };

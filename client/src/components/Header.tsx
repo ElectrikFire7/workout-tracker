@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import { UserContext } from "./Auth";
 
 const Header = () => {
+    const { user } = useContext(UserContext);
+
     return (
         <Navbar bg="light" expand="md">
             <Container>
@@ -14,12 +18,20 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="/plan">
-                            My Plan
-                        </Nav.Link>
-                        <Nav.Link as={Link} to="/session">
-                            Session
-                        </Nav.Link>
+                        {user.isAdmin ? (
+                            <Nav.Link as={Link} to="/exercises">
+                                Exercises
+                            </Nav.Link>
+                        ) : (
+                            <>
+                                <Nav.Link as={Link} to="/plan">
+                                    My Plan
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/session">
+                                    Session
+                                </Nav.Link>
+                            </>
+                        )}
                     </Nav>
                     <Nav>
                         <NavDropdown
