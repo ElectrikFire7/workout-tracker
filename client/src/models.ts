@@ -21,3 +21,20 @@ export interface Exercise {
     reps: number;
     weight: number;
 }
+
+export interface Session {
+    start: string;
+    end: string;
+    userId: string;
+    score: number;
+}
+
+export interface Progress {
+    _id: string;
+    exerciseId: string;
+    sessionId: string;
+    sets: number;
+    reps: number;
+    weight: number;
+    isComplete: boolean;
+}

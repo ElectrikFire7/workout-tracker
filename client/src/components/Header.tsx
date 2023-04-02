@@ -17,6 +17,9 @@ const Header = () => {
                         <Nav.Link as={Link} to="/plan">
                             My Plan
                         </Nav.Link>
+                        <Nav.Link as={Link} to="/session">
+                            Session
+                        </Nav.Link>
                     </Nav>
                     <Nav>
                         <NavDropdown

@@ -53,6 +53,7 @@ const PlanPage = () => {
                 exercises.map((id) => (
                     <ExerciseCard
                         key={id}
+                        action="remove"
                         exercise={allExercises[id]}
                         onClick={() =>
                             setExercises((prev) => prev.filter((x) => x !== id))
@@ -76,7 +77,7 @@ const PlanPage = () => {
                 allKeys.map((id) => (
                     <ExerciseCard
                         key={id}
-                        add
+                        action="add"
                         exercise={allExercises[id]}
                         onClick={() => setExercises((prev) => [...prev, id])}
                     />

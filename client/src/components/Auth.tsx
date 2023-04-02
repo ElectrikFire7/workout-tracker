@@ -41,14 +41,14 @@ const Auth: FC<Props> = ({ children }) => {
         })();
     }, []);
 
-    return !!user && user.isActive ? (
+    if (!user) return <>fetching ...</>;
+    if (!user.isActive) return <>Unauthorized</>;
+    return (
         <UserContext.Provider
             value={{ user, setUser: setUser as Dispatch<SetStateAction<User>> }}
         >
             {children}
         </UserContext.Provider>
-    ) : (
-        <>Unauthorized</>
     );
 };
 
