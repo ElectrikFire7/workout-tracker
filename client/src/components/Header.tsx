@@ -35,7 +35,7 @@ const Header = () => {
                     </Nav>
                     <Nav>
                         <NavDropdown
-                            title="Me"
+                            title={user.name}
                             id="basic-nav-dropdown"
                             align="end"
                         >
