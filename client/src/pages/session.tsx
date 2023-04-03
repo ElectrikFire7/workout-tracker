@@ -88,13 +88,23 @@ const SessionPage = () => {
         <Container className="w-75 mt-2">
             <div className="d-flex justify-content-between">
                 <h2 className="my-5">Workout Plan</h2>
-                <Button
-                    variant={session ? "danger" : "primary"}
-                    className="mb-4 mt-3"
-                    onClick={session ? onEnd : onStart}
-                >
-                    {session ? "End" : "Start"} Session
-                </Button>
+                {session ? (
+                    <Button
+                        variant="danger"
+                        className="mb-4 mt-3"
+                        onClick={onEnd}
+                    >
+                        End Session
+                    </Button>
+                ) : plan ? (
+                    <Button
+                        variant="primary"
+                        className="mb-4 mt-3"
+                        onClick={onStart}
+                    >
+                        Start Session
+                    </Button>
+                ) : null}
             </div>
             <h4>Name: {plan && plan.name}</h4>
             <h5>Description: {plan && plan.description}</h5>
