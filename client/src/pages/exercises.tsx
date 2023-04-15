@@ -77,7 +77,7 @@ const Exercises: FC = () => {
                         type="number"
                         id="sets"
                         value={sets}
-                        onChange={(e) => setSets(parseInt(e.target.value))}
+                        onChange={(e) => setSets(parseInt(e.target.value) || 0)}
                     />
                     <Form.Label htmlFor="reps">Reps</Form.Label>
                     <Form.Control
@@ -86,7 +86,7 @@ const Exercises: FC = () => {
                         step="0.01"
                         id="reps"
                         value={reps}
-                        onChange={(e) => setReps(parseInt(e.target.value))}
+                        onChange={(e) => setReps(parseInt(e.target.value) || 0)}
                     />
                     <Form.Label htmlFor="weight">Weight</Form.Label>
                     <Form.Control
@@ -95,11 +95,20 @@ const Exercises: FC = () => {
                         step="0.01"
                         id="weight"
                         value={weight}
-                        onChange={(e) => setWeight(parseInt(e.target.value))}
+                        onChange={(e) =>
+                            setWeight(parseInt(e.target.value) || 0)
+                        }
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={onSave}>Submit</Button>
+                    <Button
+                        onClick={onSave}
+                        disabled={
+                            !name || sets <= 0 || reps <= 0 || weight <= 0
+                        }
+                    >
+                        Submit
+                    </Button>
                 </Modal.Footer>
             </Modal>
             <Container className="w-50 mt-5">

@@ -17,6 +17,9 @@ export const createExercise: RequestHandler<
     unknown
 > = async (req, res, next) => {
     try {
+        const { sets, reps, weight } = req.body;
+        if (sets <= 0 || reps <= 0 || weight < 0)
+            return res.status(400).send("Invalid values!");
         const exercise = await Exercise.create(req.body);
         res.status(200).send(exercise);
     } catch (error) {
