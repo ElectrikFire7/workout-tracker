@@ -39,13 +39,18 @@ export const startSession: RequestHandler = async (req, res, next) => {
         if (ongoingSession)
             return res.status(400).send("Session already in progress");
 
+        const plan = await WorkoutPlan.findOne({ userId: req.user!.id });
+        if (!plan) throw Error("Plan does not exist");
+        if (!plan.exercises.length)
+            return res
+                .status(400)
+                .send("Can't start a session without exercises!");
+
         const session = await Session.create({
             start: new Date(),
             end: null,
             userId: req.user!.id,
         });
-        const plan = await WorkoutPlan.findOne({ userId: req.user!.id });
-        if (!plan) throw Error("Plan does not exist");
 
         const progresses = await Progress.insertMany(
             plan.exercises.map((id) => ({

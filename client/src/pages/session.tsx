@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 
 import api from "../api";
 import { Exercise, Plan, Progress, Session } from "../models";
@@ -11,6 +12,7 @@ const SessionPage = () => {
     const [plan, setPlan] = useState<Plan>();
     const [exercises, setExercises] = useState<Record<string, Exercise>>();
     const [progresses, setProgresses] = useState<Progress[]>();
+    const [error, setError] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -36,40 +38,49 @@ const SessionPage = () => {
 
     const added = useMemo(
         () =>
-            !exercises
-                ? null
-                : progresses?.length
-                ? progresses.map((p) => (
-                      <ExerciseCard
-                          key={p._id}
-                          exercise={exercises[p.exerciseId]}
-                          progress={p}
-                          setProgress={(p) => {
-                              setProgresses((prev) =>
-                                  prev
-                                      ?.filter((pr) => pr._id !== p._id)
-                                      .concat(p)
-                              );
-                          }}
-                      />
-                  ))
-                : plan &&
-                  plan.exercises.map((id) => (
-                      <ExerciseCard key={id} exercise={exercises[id]} />
-                  )),
+            !exercises ? null : progresses?.length ? (
+                progresses.map((p) => (
+                    <ExerciseCard
+                        key={p._id}
+                        exercise={exercises[p.exerciseId]}
+                        progress={p}
+                        setProgress={(p) => {
+                            setProgresses((prev) =>
+                                prev?.filter((pr) => pr._id !== p._id).concat(p)
+                            );
+                        }}
+                    />
+                ))
+            ) : plan && plan.exercises.length ? (
+                plan.exercises.map((id) => (
+                    <ExerciseCard key={id} exercise={exercises[id]} />
+                ))
+            ) : (
+                <div className="fst-italic">No exercises added</div>
+            ),
         [exercises, plan, progresses]
     );
 
     const onStart = useCallback(() => {
         (async () => {
-            const {
-                data: { session, progresses },
-            } = await api.post<{
-                session: Session;
-                progresses: Progress[];
-            }>("sessions/start");
-            setSession(session);
-            setProgresses(progresses);
+            const { status, data } = await api.post<
+                | {
+                      session: Session;
+                      progresses: Progress[];
+                  }
+                | string
+            >("sessions/start");
+
+            if (status === 200) {
+                const { session, progresses } = data as {
+                    session: Session;
+                    progresses: Progress[];
+                };
+                setSession(session);
+                setProgresses(progresses);
+            } else {
+                setError(data as string);
+            }
         })();
     }, []);
 
@@ -112,6 +123,11 @@ const SessionPage = () => {
                 <h4>Exercises</h4>
                 {added}
             </div>
+            {error && (
+                <Alert variant="danger" className="mt-4">
+                    {error}
+                </Alert>
+            )}
         </Container>
     );
 };
