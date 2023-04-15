@@ -2,6 +2,7 @@ import { ChangeEventHandler, FC, memo, useCallback, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 
 import api from "../api";
@@ -15,21 +16,36 @@ const CredsForm: FC<Props> = ({ isLogin }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const emailChangeHandler: ChangeEventHandler<HTMLInputElement> =
-        useCallback((e) => setEmail(e.target.value), []);
+        useCallback((e) => {
+            setEmail(e.target.value);
+            setError("");
+        }, []);
     const passChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback(
-        (e) => setPassword(e.target.value),
+        (e) => {
+            setPassword(e.target.value);
+            setError("");
+        },
         []
     );
 
     const loginHandler = useCallback(async () => {
-        await api.post("users/login", { email, password });
-        navigate("/");
+        const { status, data } = await api.post("users/login", {
+            email,
+            password,
+        });
+        if (status === 200) navigate("/");
+        else setError(data);
     }, [email, navigate, password]);
     const registerHandler = useCallback(async () => {
-        await api.post("users/signup", { email, password });
-        navigate("/profile");
+        const { data, status } = await api.post("users/signup", {
+            email,
+            password,
+        });
+        if (status === 200) navigate("/profile");
+        else setError(data);
     }, [email, navigate, password]);
 
     return (
@@ -70,6 +86,15 @@ const CredsForm: FC<Props> = ({ isLogin }) => {
                     )}
                 </p>
             </Container>
+            {error && (
+                <Alert
+                    className="position-fixed"
+                    variant="danger"
+                    style={{ bottom: 0, margin: 16 }}
+                >
+                    {error}
+                </Alert>
+            )}
         </div>
     );
 };

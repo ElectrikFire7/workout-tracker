@@ -79,12 +79,12 @@ export const login: RequestHandler<
 
         const user = await User.findOne({ email }).select("+password").exec();
         if (!user) {
-            return res.status(400).send("Invalid creds");
+            return res.status(400).send("User does not exist!");
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            return res.status(400).send("Invalid creds");
+            return res.status(400).send("Wrong password!");
         }
 
         const token = sign({ userId: user.id }, TOKEN_SECRET_KEY, {

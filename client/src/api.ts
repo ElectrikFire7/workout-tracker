@@ -14,6 +14,7 @@ api.interceptors.response.use(
         if (error?.response?.status === 401)
             // eslint-disable-next-line no-restricted-globals
             location.href = `${location.origin}/login`;
+        else return error.response;
     }
 );
 
