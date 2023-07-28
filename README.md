@@ -1,5 +1,9 @@
 # workout-tracker
 
+Designing and Planning Documentation:
+https://docs.google.com/document/d/1mAY4eHCjB1kX8K7HzmSJzBWg4D_oHg4fWZn1BCastVk/edit?usp=sharing
+https://docs.google.com/document/d/1IkR2PNYbUNIRCgBD_icRVsSxrS4RalLTMz0VIkjllBM/edit?usp=sharing
+
 ### First-time setup steps
 * Download [MongoDB](https://www.mongodb.com/try/download/community-kubernetes-operator).
 * Download [MongoDB Compass](https://www.mongodb.com/try/download/compass). (Second link on the page)
